@@ -39,7 +39,7 @@ const userController = {
       });
 
       res.cookie("refreshtoken", refreshToken, {
-        path: "/user/refreshtoken",
+        path: "/api/v1/user/refreshtoken",
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
       });
 
@@ -108,7 +108,7 @@ const userController = {
       });
 
       res.cookie("refreshtoken", refreshToken, {
-        path: "/user/refreshtoken",
+        path: "/api/v1/user/refreshtoken",
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
       });
 
@@ -121,7 +121,7 @@ const userController = {
     try {
       console.log("hello");
       await res.clearCookie("refreshtoken", {
-        path: "/user/refreshtoken",
+        path: "/api/v1/user/refreshtoken",
       });
       console.log("cookie clear");
       return res.status(200).json({ msg: "Logged out" });
