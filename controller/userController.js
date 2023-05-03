@@ -39,8 +39,6 @@ const userController = {
       });
 
       res.cookie("refreshtoken", refreshToken, {
-        httpOnly: true,
-        path: "/user/refreshtoken",
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
       });
 
@@ -109,8 +107,6 @@ const userController = {
       });
 
       res.cookie("refreshtoken", refreshToken, {
-        httpOnly: true,
-        path: "/user/refreshtoken",
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
       });
 
@@ -122,9 +118,7 @@ const userController = {
   logout: async (req, res) => {
     try {
       console.log("hello");
-      await res.clearCookie("refreshtoken", {
-        path: "/user/refreshtoken",
-      });
+      await res.clearCookie("refreshtoken");
     
       return res.status(200).json({ msg: "Logged out" });
     } catch (error) {
