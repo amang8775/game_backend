@@ -34,16 +34,12 @@ const userController = {
         id: newUser._id,
       });
 
-      const refreshToken = createRefreshToken({
-        id: newUser._id,
-      });
+      
+    
 
-      res.cookie("refreshtoken", refreshToken, {
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
-      });
-
-      // registration success
+      
       res.status(200).json({
+        "accesstoken" : accessToken ,
         msg: "registration successful",
       });
     } catch (error) {
@@ -52,40 +48,7 @@ const userController = {
       });
     }
   },
-  refreshtoken: async (req, res) => {
-    try {
-      
-     
-      const rft = req.cookies.refreshtoken; 
-      console.log("rft", rft);
-      if (!rft)
-        return res.status(400).json({
-          msg: "rft not found",
-        });
-
-      jwt.verify(rft, process.env.REFRESH_TOKEN, (err, user) => {
-        if (err) {
-          console.log(user);
-          console.log(err);
-          return res.status(400).json({
-            msg: "rft dont match ",
-          });
-        }
-        console.log(user);
-        const accesstoken = createAccessToken({
-          id: user.id,
-        });
-
-        res.json({
-          accesstoken,
-        });
-      });
-    } catch (error) {
-      return res.status(500).json({
-        msg: error.message,
-      });
-    }
-  },
+ 
   login: async (req, res) => {
     try {
       const { email, password } = req.body;
@@ -102,15 +65,11 @@ const userController = {
       const accessToken = createAccessToken({
         id: user._id,
       });
-      const refreshToken = createRefreshToken({
-        id: user._id,
-      });
+      
 
-      res.cookie("refreshtoken", refreshToken, {
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
+      res.json({
+        "accesstoken" : accessToken
       });
-
-      res.json(accessToken);
     } catch (error) {
       return res.status(500).json(error.message);
     }
@@ -206,12 +165,8 @@ const userController = {
 
 const createAccessToken = (user) => {
   return jwt.sign(user, process.env.ACCESS_TOKEN, {
-    expiresIn: "11m",
-  });
-};
-const createRefreshToken = (user) => {
-  return jwt.sign(user, process.env.REFRESH_TOKEN, {
     expiresIn: "7d",
   });
 };
+
 module.exports = userController;
