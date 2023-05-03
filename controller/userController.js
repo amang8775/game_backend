@@ -89,7 +89,7 @@ const userController = {
       const data = await Users.find().select("-password");
       if (!data) return res.status(400).json("User not found");
       data.sort((d1, d2) => {
-        if (d1.time > d2.time) return 1;
+        if (+d1.time > +d2.time) return 1;
         return -1;
       });
 
