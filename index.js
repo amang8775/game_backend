@@ -12,7 +12,7 @@ app.use(cookie()) ;
 app.use(cors()) ; 
 
 
-app.use('/api/v1/user' , require(`./routes/user`) ) ; 
+app.use('/user' , require(`./routes/user`) ) ; 
 
 
 
