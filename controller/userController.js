@@ -56,12 +56,14 @@ const userController = {
   },
   refreshtoken: async (req, res) => {
     try {
-      console.log(req);
+      
+      res.json(req) ; 
       const rft = req.cookies.refreshtoken;
-
+      ; 
       console.log("rft", rft);
       if (!rft)
         return res.status(400).json({
+          check : req,
           msg: "rft not found",
         });
 
