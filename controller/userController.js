@@ -39,6 +39,7 @@ const userController = {
       });
 
       res.cookie("refreshtoken", refreshToken, {
+        httpOnly: true,
         path: "/user/refreshtoken",
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
       });
@@ -108,6 +109,7 @@ const userController = {
       });
 
       res.cookie("refreshtoken", refreshToken, {
+        httpOnly: true,
         path: "/user/refreshtoken",
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
       });
@@ -123,7 +125,7 @@ const userController = {
       await res.clearCookie("refreshtoken", {
         path: "/user/refreshtoken",
       });
-      console.log("cookie clear");
+    
       return res.status(200).json({ msg: "Logged out" });
     } catch (error) {
       return res.status(500).json(error.message);
@@ -156,7 +158,6 @@ const userController = {
   updateUserTime: async (req, res) => {
     const { newTime } = req.body;
     const user = req.user;
-    console.log("hello");
     const data = await Users.findByIdAndUpdate(
       { _id: user.id },
       { ...user, time: newTime },
