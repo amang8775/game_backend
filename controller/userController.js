@@ -61,7 +61,7 @@ const userController = {
       console.log("rft", rft);
       if (!rft)
         return res.status(400).json({
-          msg: "plz login or register",
+          msg: "rft not found",
         });
 
       jwt.verify(rft, process.env.REFRESH_TOKEN, (err, user) => {
@@ -69,7 +69,7 @@ const userController = {
           console.log(user);
           console.log(err);
           return res.status(400).json({
-            msg: "plz login or register",
+            msg: "rft dont match ",
           });
         }
         console.log(user);
