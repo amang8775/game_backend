@@ -92,8 +92,8 @@ const userController = {
         if (+d1.time > +d2.time) return 1;
         return -1;
       });
-      let newArr = data.splice(0,1) ; 
-      res.status(200).json(newArr);
+      
+      res.status(200).json(data);
     } catch (error) {
       return res.status(500).json(error.message);
     }
